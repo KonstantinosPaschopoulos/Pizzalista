@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+    #map {
+        height: 60vh;
+    }
+</style>
+{% endblock %}
+{% block title %}: Map{% endblock %}
+{% block description %}Browse our map to look for your next slice!{% endblock %}
+{% block content %}
+
+<h1 class="fw-bold text-center">Discover the best pizzerias <span class="pizza-bg text-white p-1">around you</span>!</h1>
+<p class="h4 text-center pb-5 pt-2">Find top-rated pizzerias near you or explore pizza hotspots around the world!</p>
+<div id="map"></div>
+{{ locations|json_script:"locations-json" }}
+
+<script>
+var map = L.map("map").setView([41.9028, 12.4964], 5);
+
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+}).addTo(map);
+
+var locations = JSON.parse(document.getElementById("locations-json").textContent);
+
+locations.forEach(function(location) {
+    L.marker([location.latitude, location.longitude]).addTo(map).bindPopup(`
+        <div class="card border-0" style="width: 10rem;">
+            <img src="${location.profile_picture}" style="height: 8rem; object-fit: cover;" class="card-img-top rounded-0" loading="lazy" alt="${location.name} image">
+            <div class="card-body text-center pb-0 text-center">
+                <a href="${location.url}" class="stretched-link text-reset text-decoration-none fw-bold">
+                    ${location.name}
+                </a>
+                <br/>
+                <span>${location.address}</span>
+            </div>
+        </div>
+    `);
+});
+</script>
+
+{% endblock %}

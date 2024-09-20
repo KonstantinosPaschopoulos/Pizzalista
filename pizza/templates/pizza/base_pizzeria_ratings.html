@@ -1,0 +1,34 @@
+<div id="rating-div">
+    <div class="text-center">
+        <div><span class="fw-bold">{{ pizzeria.average_rating }}</span> / 8</div>
+        <div>{{ pizzeria.rating_count }} ratings</div>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="text-center pt-3">
+            {% for i in rating_list %}
+                <span
+                    class="pizza-star"
+                    style="cursor: pointer;{% if i > rating_value %} opacity: 0.5;{% endif %}"
+                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                    hx-post="{% url 'pizza:rate' pizzeria.id i %}"
+                    hx-target="#rating-div"
+                    hx-swap="outerHTML"
+                    hx-disabled-elt="this"
+                >
+                    &#x1f355;
+                </span>
+            {% endfor %}
+            <span
+                hx-post="{% url 'pizza:rate-delete' pizzeria.id %}"
+                hx-target="#rating-div"
+                hx-swap="outerHTML"
+                hx-disabled-elt="this"
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+            </span>
+            <p>Your rating</p>
+        </div>
+    {% endif %}
+</div>

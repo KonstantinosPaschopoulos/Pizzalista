@@ -1,0 +1,9 @@
+<div class="card text-white text-center border-0">
+    <img src="{{ pizzeria.profile_picture.url }}" class="card-img pizzeria-img-text-center rounded-0" alt="{{ pizzeria.name }} image" loading="lazy">
+    <div class="card-img-overlay d-flex justify-content-center align-items-center">
+        <a href="{{ pizzeria.get_absolute_url }}" class="stretched-link text-reset text-decoration-none pizzeria-img-text-center-title">
+            <p class="fw-bold fs-4">{{ pizzeria.name }}</p>
+            <p>{{ pizzeria.address }}</p>
+        </a>
+    </div>
+</div>

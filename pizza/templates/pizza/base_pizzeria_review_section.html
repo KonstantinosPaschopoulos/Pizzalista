@@ -1,0 +1,27 @@
+<form hx-post="{% url 'pizza:review-form' pizzeria.id %}" hx-swap="outerHTML" id="review-form" hx-disabled-elt="textarea, button.btn-primary, button.btn-danger">
+    {% csrf_token %}
+
+    <div class="form-floating pb-2">
+        <textarea class="form-control" placeholder="Leave a private review here" id="floatingTextarea" name="review_text" required>{{ review.review_text }}</textarea>
+        <label for="floatingTextarea">Your private review</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button
+        hx-post="{% url 'pizza:delete-review' pizzeria.id %}"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-swap="outerHTML"
+        hx-target="#review-form"
+        hx-disabled-elt="textarea, button.btn-primary, button.btn-danger"
+        class="btn btn-danger"
+    >
+        Delete
+    </button>
+
+    {% if submitted %}
+        <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+            Submitted!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+</form>

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block pre-content %}
+<div class="d-flex justify-content-center align-items-center position-relative" style="height: 50vh;">
+    {% include "pizza/pizza_icon.svg" %}
+    {% include "pizza/pizza_icon.svg" %}
+    {% include "pizza/pizza_icon.svg" %}
+    <div class="text-center">
+        <h1 class="fw-bold pb-1">PIZZALISTA</h1>
+        <p class="h3 p-5">Discover, rate, and celebrate your love for pizza<br/>with a global community of <span class="pizza-bg-underline">pizza lovers</span></p>
+        {% if not user.is_authenticated %}
+            <a
+                class="btn btn-primary border-0 pizza-bg text-white fw-bold rounded-0 fs-3"
+                aria-label="Login button"
+                href="{% url 'account_login' %}"
+            >
+                GET STARTED
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<p class="h3 pt-4">Hot Slices in Milan</p>
+<div class="row">
+    {% for pizzeria in milan_pizzerias %}
+        <div class="col-md-3 pt-3">
+            {% include "pizza/pizzeria_image_thumbnail.html" %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

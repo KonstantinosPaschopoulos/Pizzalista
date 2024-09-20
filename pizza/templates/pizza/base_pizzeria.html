@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}: {{ pizzeria.name }}{% endblock %}
+{% block description %}Find out more about {{ pizzeria.name }}{% endblock %}
+{% block content %}
+<div class="card border-0 position-relative rounded-top-0">
+    <img src="{{ pizzeria.profile_picture.url }}" class="card-img" alt="{{ pizzeria.name }}" loading="lazy" style="height: 40vh; width: 100%; object-fit: cover;">
+    <div class="card-img-overlay d-flex flex-column justify-content-end ps-4" style="background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 15%, transparent 60%);">
+        <h1 class="text-white fw-bold">{{ pizzeria.name }}</h1>
+        <p class="h5 text-white">{{ pizzeria.address }}</p>
+        <div>
+            {% for pizzeria_category in pizzeria.pizza_categories.all %}
+                <a
+                    class="badge border border-white text-white rounded-pill text-decoration-none"
+                    {% if pizzeria_category.url %} href="{{ pizzeria_category.url }}" target="_blank" rel="noopener noreferrer" {% endif %}
+                >
+                    {{ pizzeria_category.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="row pt-4">
+    <div class="col-12 col-sm-8">
+        <p>{{ pizzeria.description }}</p>
+    </div>
+    <div class="col-12 col-sm-4">
+        {% if user.is_authenticated %}
+            <div class="d-flex justify-content-center">
+                <div class="pe-3">
+                    {% include "pizza/base_pizzeria_wishlist.html" %}
+                    <p>Wishlist</p>
+                </div>
+                <div>
+                    {% include "pizza/base_pizzeria_favorite.html" %}
+                    <p>Favourite</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center">
+                <a href="{% url 'account_login' %}?next={{ request.path }}" class="text-reset fw-bold link-offset-3">
+                    <span class="text-decoration-none pizza-bg text-white">Sign in</span> to add {{ pizzeria.name }} to your wishlist, and to your favorites!
+                </a>
+            </div>
+        {% endif %}
+        {% include "pizza/base_pizzeria_ratings.html" %}
+    </div>
+</div>
+
+<div class="row pb-3">
+    {% if user.is_authenticated %}
+        <div class="col-12 col-sm-8 pt-4">
+            {% include "pizza/base_pizzeria_review_section.html" %}
+        </div>
+        <div class="col-12 col-sm-4 pt-4">
+            {% include "pizza/base_pizzeria_previous_visits.html" %}
+        </div>
+    {% else %}
+        <a href="{% url 'account_login' %}?next={{ request.path }}" class="text-reset fw-bold link-offset-3">
+            Sign in to leave a private <span class="pizza-bg text-white">review, and track</span> your visits!
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

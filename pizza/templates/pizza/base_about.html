@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}: About{% endblock %}
+{% block description %}Learn more about us!{% endblock %}
+{% block content %}
+<div class="accordion accordion-flush" id="accordionAbout">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseOne"
+                aria-expanded="true"
+                aria-controls="flush-collapseOne"
+            >
+                About Us
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionAbout">
+            <div class="accordion-body">
+                Welcome to <span class="fw-bold">Pizzalista</span>—your go-to platform for discovering and sharing everything
+                about pizza. Whether you're a casual pizza fan or a connoisseur on the hunt for the best slice, our app
+                is designed to bring pizza lovers together in a fun, social, and engaging way.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseTwo"
+                aria-expanded="false"
+                aria-controls="flush-collapseTwo"
+            >
+                Our Vision
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+            <div class="accordion-body">
+                We believe pizza is more than just food—it’s a cultural experience that brings people together.
+                That’s why we built Pizzalista, a platform where everyone from the casual eater to the seasoned critic
+                can find their passion. We want to be the go-to social network for pizza lovers, helping people
+                discover, rate, and enjoy the best pizza around the world.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseThree"
+                aria-expanded="false"
+                aria-controls="flush-collapseThree"
+            >
+                What Can I Do on Pizzalista?
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+            <div class="accordion-body">
+                <p class="pb-2">At Pizzalista, you can enhance your pizza experience by:</p>
+                <p><span class="fw-bold">Creating a Wishlist:</span> Save pizzerias you want to visit in one easy-to-access list, so you’re always ready for your next pizza adventure.</p>
+                <p><span class="fw-bold">Rating Pizzerias:</span> Share your thoughts by scoring your pizza experiences.</p>
+                <p><span class="fw-bold">Logging your Visits:</span> Keep track of every pizzeria you've visited.</p>
+                <p><span class="fw-bold">Saving your Favourites:</span> Save your favorite pizzerias for easy access later.</p>
+                <h3 class="pt-3">Join us and become part of a community of pizza lovers!</h3>
+            </div>
+        </div>
+    </div>
+    <p class="pt-5 text-center">
+        This website is made with lots of love (for pizza) from <a href="mailto:kon.paschopoulos@gmail.com">Konstantinos Paschopoulos</a>.
+    </p>
+</div>
+{% endblock %}

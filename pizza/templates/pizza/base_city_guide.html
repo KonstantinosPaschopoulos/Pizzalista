@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}: {{ city }}{% endblock %}
+{% block description %}Find the best pizzerias in {{ city }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center bg-light" style="height: 20vh;">
+    <div class="text-center">
+        <h1>Browse pizzerias in <span class="fw-bold pizza-bg text-white p-1">{{ city }}</span></h1>
+    </div>
+</div>
+<div class="row">
+    {% for pizzeria in pizzerias %}
+        <div class="col-md-4 pt-3">
+            {% include "pizza/pizzeria_image_thumbnail.html" %}
+        </div>
+
+        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+            </div><div class="row">
+        {% endif %}
+    {% empty %}
+        <p>Sorry, no pizzerias have been uploaded for this city.</p>
+    {% endfor %}
+</div>
+{% endblock %}

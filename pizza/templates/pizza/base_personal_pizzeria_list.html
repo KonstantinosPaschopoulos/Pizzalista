@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex flex-column flex-md-row p-4 gap-4 align-items-center justify-content-center">
+    <div class="list-group w-75">
+        {% for record in page_obj %}
+            <a href="{{ record.pizzeria.get_absolute_url }}" class="list-group-item list-group-item-action d-flex gap-3 py-3">
+                <img src="{{ record.pizzeria.profile_picture.url }}" style="height: 32px; width: 32px; object-fit: cover;" class="rounded-circle flex-shrink-0" loading="lazy" alt="{{ record.pizzeria.name }} image">
+                <div class="d-flex gap-2 w-100 justify-content-between">
+                    <div>
+                        <h6 class="mb-0">{{ record.pizzeria.name }}</h6>
+                        <p class="mb-0 opacity-75">{{ record.pizzeria.address }}</p>
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            <p>You haven't added any pizzerias yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% if page_obj.paginator.num_pages > 1 %}
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    {% endif %}
+
+    {# Calculate range: start at current_page - 1, end at current_page + 1 #}
+    {% for i in page_obj.paginator.page_range %}
+        {% if i >= page_obj.number|add:-1 and i <= page_obj.number|add:1 %}
+            {% if i == page_obj.number %}
+                <li class="page-item active">
+                    <a class="page-link">{{ i }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                </li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    {% endif %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}: Contact Us{% endblock %}
+{% block description %}Recommend your favourite pizzerias!{% endblock %}
+{% block content %}
+<h2 class="text-center">Contact Us</h2>
+<p class="lead text-center">
+    Do you know any amazing pizzerias we don't feature?<br>
+    Share the details below!
+</p>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+{% if form.errors %}
+    {% for field, errors in form.errors.items %}
+        <div class="alert alert-danger">
+            {{ field|capfirst }}: {{ errors|join:", " }}
+        </div>
+    {% endfor %}
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group pb-1">
+        <textarea
+            required
+            name="message"
+            id="message"
+            rows="5"
+            class="form-control {% if form.message.errors %}is-invalid{% endif %}"
+        >{% if form.message.errors %}{{ form.message.value }}{% endif %}</textarea>
+        {% if form.message.errors %}
+            <div class="invalid-feedback">
+                {{ form.message.errors.0 }}
+            </div>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>
+{% endblock %}

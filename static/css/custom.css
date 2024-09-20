@@ -1,0 +1,71 @@
+:root {
+    --bs-body-font-family: "Montserrat", sans-serif;
+}
+
+.pizzeria-img-text-center {
+    filter: brightness(40%);
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+.pizzeria-img-text-center-title {
+    text-transform: uppercase;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@keyframes pizza-icon-keyframes {
+    50% {
+        transform: translateY(1rem)
+    }
+}
+.pizza-icon {
+    animation: pizza-icon-keyframes 6s ease-in-out infinite;
+    position: absolute;
+    z-index: -1;
+
+}
+.pizza-icon:nth-child(1) {
+    top: 8vh;
+    left: 30vw;
+}
+.pizza-icon:nth-child(2) {
+    top: 12vh;
+    right: 25vw;
+}
+.pizza-icon:nth-child(3) {
+    top: 40vh;
+    right: 40vw;
+}
+@media (max-width: 768px) {
+    .pizza-icon {
+        height: 50px;
+    }
+    .pizza-icon:nth-child(1) {
+        top: 8vh;
+        left: 10vw;
+    }
+    .pizza-icon:nth-child(2) {
+        top: 9vh;
+        right: 6vw;
+    }
+    .pizza-icon:nth-child(3) {
+        top: 40vh;
+        right: 3vw;
+    }
+}
+
+:root {
+  --pizza-bg-color: #ff5314;
+}
+
+.pizza-bg {
+    background-color: var(--pizza-bg-color);
+}
+.pizza-bg-underline {
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.3rem;
+    text-decoration-color: var(--pizza-bg-color);
+}
